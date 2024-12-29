@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Videos</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Poppins;  
+        }
+        .main {
+            width: 100%;
+            height: auto;
+            display: grid;
+            place-items: center;
+            background-color:#fff;
+            padding: 50px 0;
+        }
+        .main .head {
+            font-size: 29px;
+            color: rgba(91, 14, 216, 0.767);
+            position: relative;
+            margin-bottom: 100px;
+            font-weight: 500;
+        }
+        .container {
+            width: 70%;
+            height: auto;
+            margin: auto 0;
+            position: relative;
+        }   
+        
+        .link {
+            text-decoration: none; 
+            color: inherit;         }
+        
+        .link:hover {
+            text-decoration: underline;
+            color: blue; 
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h3 class="head">Basics of Programming</h3>
+        <div class="container">
+            <p>Basics of Programming Languages<br>
+                Programming languages are the tools used to communicate instructions to computers. They provide a structured way to write commands that computers can interpret and execute. Each programming language has its unique syntax and features, but the fundamental concepts remain consistent across all languages.<br><br>
+                
+                Core Components of a Programming Language:<br><br>
+                <ul>
+                    <li> Syntax: The rules and structure for writing valid code.</li>
+                    <li>Data Types: Define the kind of data a language can handle, such as integers, strings, and floating-point numbers.</li>
+                    <li>Variables: Used to store data that can be manipulated during program execution.</li>
+                    <li> Operators: Symbols used to perform operations, such as addition (+), comparison (==), or logical evaluation (&&).</li>
+                    <li>Control Flow: Constructs like loops (for, while) and conditionals (if, else) that direct the execution path.</li>
+                    <li> Functions: Blocks of reusable code designed to perform specific tasks.</li>
+                    <li> Input/Output (I/O): Mechanisms to interact with users or other systems, such as reading input or displaying output</li>
+                </ul> 
+                <br><br><br><br>
+            </p>
+            <div class="section">
+                <h3 class="heading">Article</h3>
+                    <a href="#"  class="link">Dive Deep ></a>
+                
+                 <br><br>   <h3>Reccomendation</h3>
+                <ul id="recommendation-list"></ul>
+                <br><br>
+
+                <h3 class="heading">Video</h3>
+                    <a href="#"  class="link">Dive Deep ></a>
+            </div>   
+        </div>
+    </div>
+
+    <script>
+        
+        //localStorage.setItem("learningStyle", "video"); // Change to "video" or "article"
+        //localStorage.setItem("prerequisiteRange", "4-6"); // Change to "0-3", "4-6", or "7-10"
+
+        // Get user preferences from localStorage
+        const learningStyle = localStorage.getItem("learningStyle"); // User's preferred learning style
+        const prerequisiteRange = localStorage.getItem("prerequisiteRange"); // User's test score range
+
+        // Recommendation data (adjust links as needed)
+        const recommendations = {
+            "video": {
+                "0-3": [
+                    "https://www.example.com/basic-array-video",
+                    "https://www.example.com/intro-to-dsa-video",
+                    "https://www.example.com/array-dsa-explained"
+                ],
+                "4-6": [
+                    "https://www.example.com/intermediate-array-video",
+                    "https://www.example.com/dsa-sorting-video",
+                    "https://www.example.com/dsa-recursion-video"
+                ],
+                "7-10": [
+                    "https://www.example.com/advanced-dsa-video",
+                    "https://www.example.com/complexity-analysis-video",
+                    "https://www.example.com/trees-and-graphs-video"
+                ]
+            },
+            "text": {
+                "0-3": [
+                    "https://www.example.com/basic-array-article",
+                    "https://www.example.com/intro-to-dsa-article",
+                    "https://www.example.com/array-dsa-basics"
+                ],
+                "4-6": [
+                    "https://www.example.com/intermediate-array-article",
+                    "https://www.example.com/dsa-sorting-article",
+                    "https://www.example.com/dsa-recursion-article"
+                ],
+                "7-10": [
+                    "https://www.example.com/advanced-dsa-article",
+                    "https://www.example.com/complexity-analysis-article",
+                    "https://www.example.com/trees-and-graphs-article"
+                ]
+            }
+        };
+
+        // DOM element to display recommendations
+        const recommendationList = document.getElementById("recommendation-list");
+
+        // Validate and populate recommendations
+        if (learningStyle && prerequisiteRange) {
+            const selectedType = learningStyle.toLowerCase(); // Normalize learningStyle
+            const userRecommendations = recommendations[selectedType]?.[prerequisiteRange] || [];
+
+            // Populate recommendations based on user data
+            if (userRecommendations.length > 0) {
+                userRecommendations.forEach(link => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<a href="${link}" class="link" target="_blank">${link}</a>`;
+                    recommendationList.appendChild(li);
+                });
+            } else {
+                recommendationList.innerHTML = "<li>No recommendations available for this range.</li>";
+            }
+        } else {
+            recommendationList.innerHTML = "<li>Error: Missing user preferences in Storage.</li>";
+        }
+        console.log("Learning Style:", learningStyle); // Should show "video" or "article"
+console.log("Prerequisite Range:", prerequisiteRange); // Should show "0-3", "4-6", or "7-10"
+
+    </script>
+</body>
+
+</html>

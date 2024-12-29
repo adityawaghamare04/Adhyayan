@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Poppins;
+        }
+
+        body {
+            background-color: rgb(194, 146, 215);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            border-radius: 10px;
+            box-shadow: 0 0 10px 0 black;
+            width: 500px;
+            height: 350px;
+            background-color: white;
+            position: relative;
+        }
+
+        #quiz-question {
+            font-size: 1.5rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            margin-left: 30px;
+        }
+
+        li {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        #submit {
+            background-color: #974aca;
+            border: none;
+            color: rgb(255, 255, 255);
+            font-size: 1.2rem;
+            display: block;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 7.5px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        #submit:hover {
+            background-color: #963eb7;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h4 id="quiz-question">Question Placeholder</h4>
+        <ul id="options">
+            <li>
+                <input type="radio" id="option-a" name="quiz-options" class="answer" />
+                <label for="option-a" id="text_option_a">Option A</label>
+            </li>
+            <li>
+                <input type="radio" id="option-b" name="quiz-options" class="answer" />
+                <label for="option-b" id="text_option_b">Option B</label>
+            </li>
+            <li>
+                <input type="radio" id="option-c" name="quiz-options" class="answer" />
+                <label for="option-c" id="text_option_c">Option C</label>
+            </li>
+            <li>
+                <input type="radio" id="option-d" name="quiz-options" class="answer" />
+                <label for="option-d" id="text_option_d">Option D</label>
+            </li>
+        </ul>
+        <button id="submit">Submit</button>
+    </div>
+
+    <script>
+        const quiz = [
+            {
+                question: "In a circular queue, when the rear pointer reaches the end of the array, where does it go next?",
+
+ans1text: "It points to the next element",
+ans2text: "It wraps around to the front of the queue",
+ans3text: "It remains at the end of the array",
+ans4text: "It causes an error",
+answer: "It wraps around to the front of the queue",
+
+
+            },
+            {
+                question: "What is the time complexity of the 'enqueue' operation in a queue implemented using a linked list?",
+
+ans1text: "O(1)",
+ans2text: "O(n)",
+ans3text: "O(log n)",
+ans4text: "O(n^2)",
+answer: "O(1)"
+
+,
+            },
+            {
+                question: "Which of the following queue implementations prevents the 'overflow' condition even when the queue is full?",
+
+ans1text: "Simple queue",
+ans2text: "Circular queue",
+ans3text: "Priority queue",
+ans4text: "Deque",
+answer: "Circular queue"
+,
+            },
+            {
+                question: "What is the main advantage of using a priority queue over a regular queue?",
+
+ans1text: "It allows for faster removal of the front element",
+ans2text: "It sorts elements based on priority, rather than the order of insertion",
+ans3text: "It has a fixed size",
+ans4text: "It prevents memory overflow",
+answer: "It sorts elements based on priority, rather than the order of insertion"
+
+,
+            },
+            {
+                question: "In a queue implemented using two stacks, what operation can be done in O(1) time complexity?",
+
+ans1text: "Enqueue",
+ans2text: "Dequeue",
+ans3text: "Peek",
+ans4text: "Both enqueue and dequeue",
+answer: "Peek"
+
+,
+            },
+            
+            
+            
+            
+            
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById("quiz-question");
+        const optionA = document.getElementById("text_option_a");
+        const optionB = document.getElementById("text_option_b");
+        const optionC = document.getElementById("text_option_c");
+        const optionD = document.getElementById("text_option_d");
+        const submitButton = document.getElementById("submit");
+
+        function loadQuestion() {
+            const current = quiz[currentQuestion];
+            questionElement.textContent = current.question;
+            optionA.textContent = current.ans1text;
+            optionB.textContent = current.ans2text;
+            optionC.textContent = current.ans3text;
+            optionD.textContent = current.ans4text;
+        }
+
+        function updateVideos(score) {
+            let range = score <= 3 ? "0-3" : score <= 6 ? "4-6" : "7-10";
+            localStorage.setItem("quizScore", score); // Save score in localStorage
+            localStorage.setItem("quizRange", range); // Save range in localStorage
+            location.href = `/components/roadmap/dsa_roadmap.html`; // Redirect to next page
+        }
+
+        submitButton.addEventListener("click", () => {
+            const selectedAnswer = document.querySelector('input[name="quiz-options"]:checked');
+            if (!selectedAnswer) {
+                alert("Please select an answer!");
+                return;
+            }
+
+            const selectedText = selectedAnswer.nextElementSibling.textContent;
+            if (selectedText === quiz[currentQuestion].answer) {
+                score++;
+            }
+
+            currentQuestion++;
+            if (currentQuestion < quiz.length) {
+                loadQuestion();
+                selectedAnswer.checked = false;
+            } else {
+                alert("Your Prerequisite test score is " + score);
+                updateVideos(score);
+            }
+        });
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

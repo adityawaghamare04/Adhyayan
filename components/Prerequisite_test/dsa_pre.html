@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DSA Prerequisite Test</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Poppins;
+        }
+
+        body {
+            background-color: rgb(194, 146, 215);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            border-radius: 10px;
+            box-shadow: 0 0 10px 0 black;
+            width: 500px;
+            height: 350px;
+            background-color: white;
+            position: relative;
+        }
+
+        #quiz-question {
+            font-size: 1.5rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            margin-left: 30px;
+        }
+
+        li {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        #submit {
+            background-color: #974aca;
+            border: none;
+            color: rgb(255, 255, 255);
+            font-size: 1.2rem;
+            display: block;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 7.5px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        #submit:hover {
+            background-color: #963eb7;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3 style="text-align: center;">PREREQUISITE TEST</h3>
+        <h2 id="quiz-question">Question Placeholder</h2>
+        <ul id="options">
+            <li>
+                <input type="radio" id="option-a" name="quiz-options" class="answer" />
+                <label for="option-a" id="text_option_a">Option A</label>
+            </li>
+            <li>
+                <input type="radio" id="option-b" name="quiz-options" class="answer" />
+                <label for="option-b" id="text_option_b">Option B</label>
+            </li>
+            <li>
+                <input type="radio" id="option-c" name="quiz-options" class="answer" />
+                <label for="option-c" id="text_option_c">Option C</label>
+            </li>
+            <li>
+                <input type="radio" id="option-d" name="quiz-options" class="answer" />
+                <label for="option-d" id="text_option_d">Option D</label>
+            </li>
+        </ul>
+        <button id="submit">Submit</button>
+    </div>
+
+    <script>
+        const quiz = [
+            {
+                question: "What is the time complexity of accessing an element in an array using its index?",
+                ans1text: "O(n)",
+                ans2text: "O(Logn)",
+                ans3text: "O(1)",
+                ans4text: "O(nLogn)",
+                answer: "O(1)",
+            },
+            {
+                question: "Which of the following data structures uses the 'Last In,First Out' (LIFO) principle?",
+                ans1text: "Array",
+                ans2text: "Stack",
+                ans3text: "Queue",
+                ans4text: "Graphs",
+                answer: "Stack",
+            },
+            {
+                question: "What is the minimum number of nodes in a binary tree of height 3?",
+                ans1text: "4",
+                ans2text: "5",
+                ans3text: "3",
+                ans4text: "6",
+                answer: "4",
+            },
+            {
+                question: "Which sorting algorithm has the best average-case time complexity?",
+                ans1text: "Quick Sort",
+                ans2text: "Merge Sort",
+                ans3text: "Insertion Sort",
+                ans4text: "Bubble Sort",
+                answer: "Merge Sort",
+            },
+            {
+                question: "How can you efficiently check if a given binary tree is a Binary Search Tree (BST)?",
+                ans1text: "Perform an inorder traversal and check if the sequence is sorted.",
+                ans2text: "Compare each node to all its descendants.",
+                ans3text: " Perform a preorder traversal and check for duplicates.",
+                ans4text: "none of the above",
+                answer: "Perform an inorder traversal and check if the sequence is sorted.",
+            },
+            {
+                question: "What is the height of a balanced binary tree with n nodes?",
+                ans1text: "O(Log n)",
+                ans2text: "O(n)",
+                ans3text: "O(1)",
+                ans4text: "none of the above",
+                answer: "O(Log n)",
+            },
+            {
+                question: "In a graph, which algorithm is commonly used to find the shortest path from a source node to all other nodes?",
+                ans1text: "Prim's Algorithm",
+                ans2text: "Kruskal Algorithm",
+                ans3text: "Dijkstra's Algorithm",
+                ans4text: "Depth First Search",
+                answer: "Dijkstra's Algorithm",
+            },
+            {
+                question: "What is the amortized time complexity of performing operations in a splay tree?",
+                ans1text: "O(n Logn)",
+                ans2text: "O(log n)",
+                ans3text: "O(n)",
+                ans4text: "O(1)",
+                answer: "O(log n)",
+            },
+            {
+                question: "Given a graph with negative edge weights, which algorithm can be used to find the shortest path?",
+                ans1text: "Kruskal Algorithm",
+                ans2text: "Prims Algorithm",
+                ans3text: "Bellman-Ford Algorithm",
+                ans4text: "Djiktra's Algorithm",
+                answer: "Bellman-Ford Algorithm",
+            },
+            {
+                question: "What is the time complexity of the Knuth-Morris-Pratt (KMP) pattern matching algorithm?",
+                ans1text: "O(n^2)",
+                ans2text: "O(m + n)",
+                ans3text: "O(n log n)",
+                ans4text: "O(mn)",
+                answer: "O(m + n)",
+            },
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById("quiz-question");
+        const optionA = document.getElementById("text_option_a");
+        const optionB = document.getElementById("text_option_b");
+        const optionC = document.getElementById("text_option_c");
+        const optionD = document.getElementById("text_option_d");
+        const submitButton = document.getElementById("submit");
+
+        function loadQuestion() {
+            const current = quiz[currentQuestion];
+            questionElement.textContent = current.question;
+            optionA.textContent = current.ans1text;
+            optionB.textContent = current.ans2text;
+            optionC.textContent = current.ans3text;
+            optionD.textContent = current.ans4text;
+        }
+
+        function updateRecommendation(score) {
+            const range = score <= 3 ? "0-3" : score <= 6 ? "4-6" : "7-10";
+            localStorage.setItem("prerequisiteScore", score);
+            localStorage.setItem("prerequisiteRange", range);
+            alert(`Your score is ${score}. Redirecting to recommendations...`);
+            location.href = "/components/roadmap/dsa_roadmap.html"; // Adjust path to recommendation system
+        }
+
+        submitButton.addEventListener("click", () => {
+            const selectedAnswer = document.querySelector('input[name="quiz-options"]:checked');
+            if (!selectedAnswer) {
+                alert("Please select an answer!");
+                return;
+            }
+
+            const selectedText = selectedAnswer.nextElementSibling.textContent;
+            if (selectedText === quiz[currentQuestion].answer) {
+                score++;
+            }
+
+            currentQuestion++;
+            if (currentQuestion < quiz.length) {
+                loadQuestion();
+                selectedAnswer.checked = false;
+            } else {
+                updateRecommendation(score);
+            }
+        });
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

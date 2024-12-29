@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Poppins;
+        }
+
+        body {
+            background-color: rgb(194, 146, 215);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            border-radius: 10px;
+            box-shadow: 0 0 10px 0 black;
+            width: 500px;
+            background-color: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        #quiz-question {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            margin-left: 30px;
+        }
+
+        li {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        #submit {
+            background-color: #974aca;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #submit:hover {
+            background-color: #963eb7;
+            cursor: pointer;
+        }
+
+        .result-container {
+            margin-top: 20px;
+        }
+
+        .result-item {
+            margin-bottom: 20px;
+        }
+
+        video {
+            display: block;
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h4 id="quiz-question">Question Placeholder</h4>
+        <ul id="options">
+            <li>
+                <input type="radio" id="option-a" name="quiz-options" class="answer" />
+                <label for="option-a" id="text_option_a">Option A</label>
+            </li>
+            <li>
+                <input type="radio" id="option-b" name="quiz-options" class="answer" />
+                <label for="option-b" id="text_option_b">Option B</label>
+            </li>
+            <li>
+                <input type="radio" id="option-c" name="quiz-options" class="answer" />
+                <label for="option-c" id="text_option_c">Option C</label>
+            </li>
+            <li>
+                <input type="radio" id="option-d" name="quiz-options" class="answer" />
+                <label for="option-d" id="text_option_d">Option D</label>
+            </li>
+        </ul>
+        <button id="submit">Submit</button>
+    </div>
+    <div class="result-container" id="results" style="display: none;">
+        <h2>Quiz Results</h2>
+        <p id="final-score"></p>
+    </div>
+
+    <script>
+        
+        const quiz = [
+        {
+            question: "Which of the following is an example of an array?",
+            ans1text: "10, 20, 30",
+            ans2text: "[10, 20, 30]",
+            ans3text: "10 -> 20 -> 30",
+            ans4text: "(10, 20, 30)",
+            answer: "[10, 20, 30]",
+            video: "https://example.com/videos/array_example.mp4",
+        },
+        {
+            question: "Which operation is used to remove the last element from an array?",
+            ans1text: "Add",
+            ans2text: "Pop",
+            ans3text: "Shift",
+            ans4text: "Insert",
+            answer: "Pop",
+            video: "https://example.com/videos/array_pop.mp4",
+        },
+        {
+            question: "What does the length of an array represent?",
+            ans1text: "The sum of all elements",
+            ans2text: "The number of elements in the array",
+            ans3text: "The first element in the array",
+            ans4text: "The last element in the array",
+            answer: "The number of elements in the array",
+            video: "https://example.com/videos/array_length.mp4",
+        },
+        {
+            question: "Which of the following methods is used to find the index of a specific element in an array?",
+            ans1text: "array.indexOf()",
+            ans2text: "array.search()",
+            ans3text: "array.locate()",
+            ans4text: "array.findIndex()",
+            answer: "array.indexOf()",
+            video: "https://example.com/videos/array_indexof.mp4",
+        },
+        {
+            question: "How would you refer to the first element of an array?",
+            ans1text: "array[1]",
+            ans2text: "array[0]",
+            ans3text: "array.first()",
+            ans4text: "array[2]",
+            answer: "array[0]",
+            video: "https://example.com/videos/array_first_element.mp4",
+        },
+    ];
+    
+        
+
+        let currentQuestion = 0;
+        let score = 0;
+        let incorrectAnswers = [];
+
+        const questionElement = document.getElementById("quiz-question");
+        const optionA = document.getElementById("text_option_a");
+        const optionB = document.getElementById("text_option_b");
+        const optionC = document.getElementById("text_option_c");
+        const optionD = document.getElementById("text_option_d");
+        const submitButton = document.getElementById("submit");
+        const resultsContainer = document.getElementById("results");
+        const finalScore = document.getElementById("final-score");
+
+        function loadQuestion() {
+            const current = quiz[currentQuestion];
+            questionElement.textContent = current.question;
+            optionA.textContent = current.ans1text;
+            optionB.textContent = current.ans2text;
+            optionC.textContent = current.ans3text;
+            optionD.textContent = current.ans4text;
+        }
+
+        submitButton.addEventListener("click", () => {
+            const selectedAnswer = document.querySelector('input[name="quiz-options"]:checked');
+            if (!selectedAnswer) {
+                alert("Please select an answer!");
+                return;
+            }
+
+            const selectedText = selectedAnswer.nextElementSibling.textContent;
+            const current = quiz[currentQuestion];
+
+            if (selectedText === current.answer) {
+                score++;
+            } else {
+                incorrectAnswers.push({
+                    question: current.question,
+                    correctAnswer: current.answer,
+                    video: current.video,
+                });
+            }
+
+            currentQuestion++;
+            if (currentQuestion < quiz.length) {
+                loadQuestion();
+                selectedAnswer.checked = false;
+            } else {
+                displayResults();
+            }
+        });
+
+        function displayResults() {
+            document.querySelector(".container").style.display = "none";
+            resultsContainer.style.display = "block";
+
+            finalScore.textContent = `Your Score: ${score}/${quiz.length}`;
+
+            incorrectAnswers.forEach((item) => {
+                const resultItem = document.createElement("div");
+                resultItem.className = "result-item";
+
+                resultItem.innerHTML = `
+                    <p><strong>Question:</strong> ${item.question}</p>
+                    <p><strong>Correct Answer:</strong> ${item.correctAnswer}</p>
+                    <video controls src="${item.video}"></video>
+                `;
+                resultsContainer.appendChild(resultItem);
+            });
+        }
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

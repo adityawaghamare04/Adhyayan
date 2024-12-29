@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Behavior Analysis Quiz</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Poppins;
+        }
+
+        body {
+            background-color: rgb(194, 146, 215);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            border-radius: 10px;
+            box-shadow: 0 0 10px 0 black;
+            width: 500px;
+            height: 400px;
+            background-color: white;
+            position: relative;
+        }
+
+        #quiz-question {
+            font-size: 1.5rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            margin-left: 30px;
+        }
+
+        li {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        #submit {
+            background-color: #974aca;
+            border: none;
+            color: rgb(255, 255, 255);
+            font-size: 1.2rem;
+            display: block;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 10px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        #submit:hover {
+            background-color: #963eb7;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3 style="text-align: center;">QUESRTIONAIRE TEST</h3>
+        <h2 id="quiz-question">Question Placeholder</h2>
+        <ul id="options">
+            <li>
+                <input type="radio" id="option-a" name="quiz-options" class="answer" />
+                <label for="option-a" id="text_option_a">Option A</label>
+            </li>
+            <li>
+                <input type="radio" id="option-b" name="quiz-options" class="answer" />
+                <label for="option-b" id="text_option_b">Option B</label>
+            </li>
+            <li>
+                <input type="radio" id="option-c" name="quiz-options" class="answer" />
+                <label for="option-c" id="text_option_c">Option C</label>
+            </li>
+            <li>
+                <input type="radio" id="option-d" name="quiz-options" class="answer" />
+                <label for="option-d" id="text_option_d">Option D</label>
+            </li>
+        </ul>
+        <button id="submit">Submit</button>
+    </div>
+
+    <script>
+        const quiz = [
+        {
+            question: "When learning something new, like fixing a tool or planting a crop, how do you usually start?",
+            ans1text: "Watch a video or see someone demonstrate how it’s done.",
+            ans2text: "Listen to a detailed explanation or read an article about the steps.",
+            ans3text: "Look at step-by-step pictures or diagrams.",
+            ans4text: "Read a guide and try it out yourself while following the steps."
+        },
+        {
+            question: "How do you best understand how something works, like a water pump or a mobile app?",
+            ans1text: "By watching a video that demonstrates its functionality.",
+            ans2text: "By reading an article or listening to someone explain it clearly.",
+            ans3text: "By analyzing a diagram or series of images.",
+            ans4text: "By reading detailed instructions and experimenting with it hands-on."
+        },
+        {
+            question: "Imagine you’re assembling a simple machine like a hand pump or a cart. What would you do first?",
+            ans1text: "Watch a video or animation showing how the parts fit together.",
+            ans2text: "Read an article or instructions to understand the process.",
+            ans3text: "Refer to a detailed diagram or step-by-step pictures.",
+            ans4text: "Read a manual and start assembling it while figuring out the steps."
+        },
+        {
+            question: "When you watch a cultural program or a TV show, what catches your attention the most?",
+            ans1text: "The visuals, such as costumes, decorations, or dances in a video or image gallery.",
+            ans2text: "The dialogues or text captions that explain the event.",
+            ans3text: "The detailed visuals like diagrams or photos explaining the context.",
+            ans4text: "The action or physical activities described in text or articles."
+        },
+        {
+            question: "If you need to remember the phone number of a nearby shop or friend, how do you do it?",
+            ans1text: "Visualize the numbers in your mind or save them as an image.",
+            ans2text: "Write them down or save them as a note in an article-style document.",
+            ans3text: "Save them in your phone and associate them with a picture.",
+            ans4text: "Write them repeatedly or use an article to recall the details."
+        },
+        {
+            question: "If you want to learn how to fix a bicycle puncture, what would you do first?",
+            ans1text: "Watch a video or see someone demonstrate the steps visually.",
+            ans2text: "Read an article or detailed instructions about the process.",
+            ans3text: "Refer to a series of images or diagrams showing the process.",
+            ans4text: "Follow a guide or article and start working on the bicycle step-by-step."
+        }
+        
+        ];
+
+        let currentQuestion = 0;
+        const counts = { a: 0, b: 0, c: 0, d: 0 };
+
+        const questionElement = document.getElementById("quiz-question");
+        const optionA = document.getElementById("text_option_a");
+        const optionB = document.getElementById("text_option_b");
+        const optionC = document.getElementById("text_option_c");
+        const optionD = document.getElementById("text_option_d");
+        const submitButton = document.getElementById("submit");
+
+        function loadQuestion() {
+            const current = quiz[currentQuestion];
+            questionElement.textContent = current.question;
+            optionA.textContent = current.ans1text;
+            optionB.textContent = current.ans2text;
+            optionC.textContent = current.ans3text;
+            optionD.textContent = current.ans4text;
+        }
+
+        function showResult() {
+            const maxChoice = Object.keys(counts).reduce((a, b) => (counts[a] > counts[b] ? a : b));
+            const resultMap = {
+                a: "video",
+                b: "text",
+                c: "video",
+                d: "text"
+            };
+            const learningStyle = resultMap[maxChoice];
+
+            // Save the result in local storage to pass to the recommendation system
+            localStorage.setItem("learningStyle", learningStyle);
+            alert(`Your preferred learning style is: ${learningStyle}`);
+
+            // Redirect to the next page (e.g., prerequisite test)
+            window.location.href = "dsa_pre.html";
+        }
+
+        submitButton.addEventListener("click", () => {
+            const selectedAnswer = document.querySelector('input[name="quiz-options"]:checked');
+            if (!selectedAnswer) {
+                alert("Please select an answer!");
+                return;
+            }
+
+            const selectedId = selectedAnswer.id.split("-")[1];
+            counts[selectedId]++;
+            selectedAnswer.checked = false;
+
+            currentQuestion++;
+            if (currentQuestion < quiz.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        });
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

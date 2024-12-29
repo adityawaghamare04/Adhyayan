@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DSA</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Poppins;
+        }
+
+        .main {
+            width: 100%;
+            height: auto;
+            display: grid;
+            place-items: center;
+            background-color: #fff;
+            padding: 50px 0;
+        }
+
+        .main .head {
+            font-size: 29px;
+            color: rgba(91, 14, 216, 0.767);
+            position: relative;
+            margin-bottom: 100px;
+            font-weight: 500;
+        }
+
+        .container {
+            width: 70%;
+            height: auto;
+            margin: auto 0;
+            position: relative;
+        }
+
+        .link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+            color: blue;
+        }
+
+      
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h3 class="head">Array</h3>
+        
+
+        <div class="container">
+            <p>
+                    
+                ARRAY: A Fundamental Data Structure<br> 
+                An array is a collection of elements, stored at contiguous memory locations, that can hold multiple values of the same data type. Arrays enable efficient storage and retrieval of data, making them an essential building block in programming. They are particularly useful for managing lists, implementing algorithms, and solving problems in various domains such as data science, game development, and web applications.<br><br>
+                
+                Key features of arrays include:<br>  
+                - Index-Based Access: Quickly retrieve or modify elements using their index.<br>  
+                - Fixed Size: Arrays are defined with a specific size, which determines the number of elements they can store.<br>  
+                - Efficient Memory Usage: Elements are stored sequentially, optimizing memory access. <br> 
+                - Flexibility Across Languages: Widely supported in programming languages like Python, Java, C++, and JavaScript.<br>
+                
+                Arrays play a crucial role in simplifying data handling, enabling developers to focus on creating robust and efficient solutions. 
+            </p><br><br><br>
+            <div class="section">
+                <h3 class="heading">Article</h3>
+                    <a href="#"  class="link">Dive Deep ></a>
+                
+                 <br><br>   <h3>Reccomendation</h3>
+                <ul id="recommendation-list"></ul>
+                <br><br>
+
+                <h3 class="heading">Video</h3>
+                    <a href="#"  class="link">Dive Deep ></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        //localStorage.setItem("learningStyle", "video"); // Change to "video" or "article"
+        //localStorage.setItem("prerequisiteRange", "4-6"); // Change to "0-3", "4-6", or "7-10"
+
+        // Get user preferences from localStorage
+        const learningStyle = localStorage.getItem("learningStyle"); // User's preferred learning style
+        const prerequisiteRange = localStorage.getItem("prerequisiteRange"); // User's test score range
+
+        // Recommendation data (adjust links as needed)
+        const recommendations = {
+            "video": {
+                "0-3": [
+                    "https://www.example.com/basic-array-video",
+                    "https://www.example.com/intro-to-dsa-video",
+                    "https://www.example.com/array-dsa-explained"
+                ],
+                "4-6": [
+                    "https://www.example.com/intermediate-array-video",
+                    "https://www.example.com/dsa-sorting-video",
+                    "https://www.example.com/dsa-recursion-video"
+                ],
+                "7-10": [
+                    "https://www.example.com/advanced-dsa-video",
+                    "https://www.example.com/complexity-analysis-video",
+                    "https://www.example.com/trees-and-graphs-video"
+                ]
+            },
+            "text": {
+                "0-3": [
+                    "https://www.example.com/basic-array-article",
+                    "https://www.example.com/intro-to-dsa-article",
+                    "https://www.example.com/array-dsa-basics"
+                ],
+                "4-6": [
+                    "https://www.example.com/intermediate-array-article",
+                    "https://www.example.com/dsa-sorting-article",
+                    "https://www.example.com/dsa-recursion-article"
+                ],
+                "7-10": [
+                    "https://www.example.com/advanced-dsa-article",
+                    "https://www.example.com/complexity-analysis-article",
+                    "https://www.example.com/trees-and-graphs-article"
+                ]
+            }
+        };
+
+        // DOM element to display recommendations
+        const recommendationList = document.getElementById("recommendation-list");
+
+        // Validate and populate recommendations
+        if (learningStyle && prerequisiteRange) {
+            const selectedType = learningStyle.toLowerCase(); // Normalize learningStyle
+            const userRecommendations = recommendations[selectedType]?.[prerequisiteRange] || [];
+
+            // Populate recommendations based on user data
+            if (userRecommendations.length > 0) {
+                userRecommendations.forEach(link => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<a href="${link}" class="link" target="_blank">${link}</a>`;
+                    recommendationList.appendChild(li);
+                });
+            } else {
+                recommendationList.innerHTML = "<li>No recommendations available for this range.</li>";
+            }
+        } else {
+            recommendationList.innerHTML = "<li>Error: Missing user preferences in Storage.</li>";
+        }
+        console.log("Learning Style:", learningStyle); // Should show "video" or "article"
+console.log("Prerequisite Range:", prerequisiteRange); // Should show "0-3", "4-6", or "7-10"
+
+    </script>
+</body>
+
+</html>

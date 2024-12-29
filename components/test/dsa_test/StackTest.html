@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Poppins;
+        }
+
+        body {
+            background-color: rgb(194, 146, 215);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            border-radius: 10px;
+            box-shadow: 0 0 10px 0 black;
+            width: 500px;
+            height: 350px;
+            background-color: white;
+            position: relative;
+        }
+
+        #quiz-question {
+            font-size: 1.5rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            margin-left: 30px;
+        }
+
+        li {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        #submit {
+            background-color: #974aca;
+            border: none;
+            color: rgb(255, 255, 255);
+            font-size: 1.2rem;
+            display: block;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 7.5px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        #submit:hover {
+            background-color: #963eb7;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h4 id="quiz-question">Question Placeholder</h4>
+        <ul id="options">
+            <li>
+                <input type="radio" id="option-a" name="quiz-options" class="answer" />
+                <label for="option-a" id="text_option_a">Option A</label>
+            </li>
+            <li>
+                <input type="radio" id="option-b" name="quiz-options" class="answer" />
+                <label for="option-b" id="text_option_b">Option B</label>
+            </li>
+            <li>
+                <input type="radio" id="option-c" name="quiz-options" class="answer" />
+                <label for="option-c" id="text_option_c">Option C</label>
+            </li>
+            <li>
+                <input type="radio" id="option-d" name="quiz-options" class="answer" />
+                <label for="option-d" id="text_option_d">Option D</label>
+            </li>
+        </ul>
+        <button id="submit">Submit</button>
+    </div>
+
+    <script>
+        const quiz = [
+            {
+                question: "What is the space complexity of a stack implemented using an array, where the maximum number of elements that can be pushed is 'n'?",
+
+ans1text: "O(1)",
+ans2text: "O(n)",
+ans3text: "O(log n)",
+ans4text: "O(n^2)",
+answer: "O(n)",
+video: "https://example.com/videos/array_example.mp4"
+
+
+            },
+            {
+                question: "In a stack implemented using a linked list, what would be the time complexity of the 'pop' operation?",
+
+ans1text: "O(1)",
+ans2text: "O(log n)",
+ans3text: "O(n)",
+ans4text: "O(n^2)",
+answer: "O(1)"
+,video: "https://example.com/videos/array_pop.mp4"
+            },
+            {
+                question: "Which of the following algorithms uses a stack to check for balanced parentheses?",
+
+ans1text: "Breadth-First Search (BFS)",
+ans2text: "Depth-First Search (DFS)",
+ans3text: "Dijkstra's Algorithm",
+ans4text: "Valid Parentheses Problem",
+answer: "Valid Parentheses Problem"
+,video: "https://example.com/videos/array_length.mp4"
+            },
+            {
+                question: "In the context of a stack, what is the purpose of the 'peek' operation?",
+
+ans1text: "To remove the top element from the stack",
+ans2text: "To view the top element without removing it",
+ans3text: "To add a new element to the stack",
+ans4text: "To check if the stack is empty",
+answer: "To view the top element without removing it"
+,video: "https://example.com/videos/array_indexof.mp4"
+            },
+            {
+                question: "What happens in a stack if we try to push an element when the stack is full (in an array implementation with a fixed size)?",
+
+ans1text: "The stack automatically resizes",
+ans2text: "The element is discarded",
+ans3text: "An error or overflow condition is raised",
+ans4text: "The stack continues accepting elements without any issues",
+answer: "An error or overflow condition is raised",
+video: "https://example.com/videos/array_first_element.mp4"
+
+,
+            },
+            
+            
+            
+            
+            
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let incorrectAnswers = [];
+
+        const questionElement = document.getElementById("quiz-question");
+        const optionA = document.getElementById("text_option_a");
+        const optionB = document.getElementById("text_option_b");
+        const optionC = document.getElementById("text_option_c");
+        const optionD = document.getElementById("text_option_d");
+        const submitButton = document.getElementById("submit");
+        const resultsContainer = document.getElementById("results");
+        const finalScore = document.getElementById("final-score");
+
+        function loadQuestion() {
+            const current = quiz[currentQuestion];
+            questionElement.textContent = current.question;
+            optionA.textContent = current.ans1text;
+            optionB.textContent = current.ans2text;
+            optionC.textContent = current.ans3text;
+            optionD.textContent = current.ans4text;
+        }
+
+        submitButton.addEventListener("click", () => {
+            const selectedAnswer = document.querySelector('input[name="quiz-options"]:checked');
+            if (!selectedAnswer) {
+                alert("Please select an answer!");
+                return;
+            }
+
+            const selectedText = selectedAnswer.nextElementSibling.textContent;
+            const current = quiz[currentQuestion];
+
+            if (selectedText === current.answer) {
+                score++;
+            } else {
+                incorrectAnswers.push({
+                    question: current.question,
+                    correctAnswer: current.answer,
+                    video: current.video,
+                });
+            }
+
+            currentQuestion++;
+            if (currentQuestion < quiz.length) {
+                loadQuestion();
+                selectedAnswer.checked = false;
+            } else {
+                displayResults();
+            }
+        });
+
+        function displayResults() {
+            document.querySelector(".container").style.display = "none";
+            resultsContainer.style.display = "block";
+
+            finalScore.textContent = `Your Score: ${score}/${quiz.length}`;
+
+            incorrectAnswers.forEach((item) => {
+                const resultItem = document.createElement("div");
+                resultItem.className = "result-item";
+
+                resultItem.innerHTML = `
+                    <p><strong>Question:</strong> ${item.question}</p>
+                    <p><strong>Correct Answer:</strong> ${item.correctAnswer}</p>
+                    <video controls src="${item.video}"></video>
+                `;
+                resultsContainer.appendChild(resultItem);
+            });
+        }
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

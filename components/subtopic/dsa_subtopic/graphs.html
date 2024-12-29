@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DSA Roadmap</title>
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                font-family: Poppins;  
+            }
+            .main {
+                width: 100%;
+                height: auto;
+                display: grid;
+                place-items: center;
+                background-color:#fff;
+                padding: 50px 0;
+            }
+            .main .head {
+                font-size: 29px;
+                color: rgba(91, 14, 216, 0.767);
+                position: relative;
+                margin-bottom: 100px;
+                font-weight: 500;
+            }
+            .container {
+                width: 70%;
+                height: auto;
+                margin: auto 0;
+                position: relative;
+            }   
+            
+            .link {
+                text-decoration: none; 
+                color: inherit;         }
+            
+            .link:hover {
+                text-decoration: underline;
+                color: blue; 
+            }
+            
+        </style>
+
+    <body>
+        
+       
+        <div class="main">
+            <h3 class="head">GRAPHS</h3>
+           
+            <div class="container">
+                <p>Graphs<br>
+A graph is a versatile data structure that represents relationships between pairs of objects. It is widely used to model networks, social interactions, dependencies, paths, and various other interconnected systems. Unlike trees, which are hierarchical, graphs can have complex structures that may include cycles and multiple connections between nodes.<br><br>
+
+Key Concepts of Graphs:<br><br>
+Vertex (Node):
+
+A vertex (plural: vertices) is a point or a node in the graph that represents an entity (e.g., a person, a city, a web page).<br>
+Edge (Arc):
+
+An edge (or arc) is a connection between two vertices. It represents a relationship or a link between the entities. An edge may or may not have a direction and may or may not have a weight (cost or value).<br>
+Adjacency:
+
+Two vertices are adjacent if there is an edge between them. In an undirected graph, the adjacency relationship is mutual (i.e., if A is connected to B, then B is connected to A). In a directed graph, adjacency is one-way.<br>
+Path:
+
+A path is a sequence of vertices in which each consecutive pair is connected by an edge. A simple path has no repeated vertices.<br>
+Cycle:
+
+A cycle is a path that starts and ends at the same vertex, with all edges and vertices (except the start and end) being distinct.<br>
+
+                    <br><br>
+
+            </p>
+
+            <div class="section">
+                <h3 class="heading">Article</h3>
+                    <a href="#"  class="link">Dive Deep ></a>
+                
+                 <br><br>   <h3>Reccomendation</h3>
+                <ul id="recommendation-list"></ul>
+                <br><br>
+
+                <h3 class="heading">Video</h3>
+                    <a href="#"  class="link">Dive Deep ></a>
+            </div>
+            </div>
+        </div>
+
+        <script>
+        
+            //localStorage.setItem("learningStyle", "video"); // Change to "video" or "article"
+            //localStorage.setItem("prerequisiteRange", "4-6"); // Change to "0-3", "4-6", or "7-10"
+    
+            // Get user preferences from localStorage
+            const learningStyle = localStorage.getItem("learningStyle"); // User's preferred learning style
+            const prerequisiteRange = localStorage.getItem("prerequisiteRange"); // User's test score range
+    
+            // Recommendation data (adjust links as needed)
+            const recommendations = {
+                "video": {
+                    "0-3": [
+                        "https://www.example.com/basic-array-video",
+                        "https://www.example.com/intro-to-dsa-video",
+                        "https://www.example.com/array-dsa-explained"
+                    ],
+                    "4-6": [
+                        "https://www.example.com/intermediate-array-video",
+                        "https://www.example.com/dsa-sorting-video",
+                        "https://www.example.com/dsa-recursion-video"
+                    ],
+                    "7-10": [
+                        "https://www.example.com/advanced-dsa-video",
+                        "https://www.example.com/complexity-analysis-video",
+                        "https://www.example.com/trees-and-graphs-video"
+                    ]
+                },
+                "text": {
+                    "0-3": [
+                        "https://www.example.com/basic-array-article",
+                        "https://www.example.com/intro-to-dsa-article",
+                        "https://www.example.com/array-dsa-basics"
+                    ],
+                    "4-6": [
+                        "https://www.example.com/intermediate-array-article",
+                        "https://www.example.com/dsa-sorting-article",
+                        "https://www.example.com/dsa-recursion-article"
+                    ],
+                    "7-10": [
+                        "https://www.example.com/advanced-dsa-article",
+                        "https://www.example.com/complexity-analysis-article",
+                        "https://www.example.com/trees-and-graphs-article"
+                    ]
+                }
+            };
+    
+            // DOM element to display recommendations
+            const recommendationList = document.getElementById("recommendation-list");
+    
+            // Validate and populate recommendations
+            if (learningStyle && prerequisiteRange) {
+                const selectedType = learningStyle.toLowerCase(); // Normalize learningStyle
+                const userRecommendations = recommendations[selectedType]?.[prerequisiteRange] || [];
+    
+                // Populate recommendations based on user data
+                if (userRecommendations.length > 0) {
+                    userRecommendations.forEach(link => {
+                        const li = document.createElement("li");
+                        li.innerHTML = `<a href="${link}" class="link" target="_blank">${link}</a>`;
+                        recommendationList.appendChild(li);
+                    });
+                } else {
+                    recommendationList.innerHTML = "<li>No recommendations available for this range.</li>";
+                }
+            } else {
+                recommendationList.innerHTML = "<li>Error: Missing user preferences in Storage.</li>";
+            }
+            console.log("Learning Style:", learningStyle); // Should show "video" or "article"
+    console.log("Prerequisite Range:", prerequisiteRange); // Should show "0-3", "4-6", or "7-10"
+    
+        </script>
+    </body>
+</html>

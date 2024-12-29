@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Full Stack Development Roadmap</title>
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                font-family: Poppins;
+                
+            }
+            
+            .main {
+                width: 100%;
+                height: auto;
+                display: grid;
+                place-items: center;
+                background-color: #fff;
+                padding: 50px 0;
+            }
+            .main .head {
+                font-size: 29px;
+                color: rgba(91, 14, 216, 0.767);
+                position: relative;
+                margin-bottom: 100px;
+                font-weight: 500;
+            }
+            .main .head::after {
+                content: " ";
+                position: absolute;
+                width: 50%;
+                height: 3px;
+                left: 50%;
+                bottom: -5px;
+                transform: translateX(-50%);
+                background-image: linear-gradient(to right, rgba(91, 14, 216, 0.767), rgba(238, 12, 200, 0.747));
+            }
+            
+            /* Container Css Start  */
+            
+            .container {
+                width: 70%;
+                height: auto;
+                margin: auto 0;
+                position: relative;
+                
+            }
+
+            
+
+            .container ul {
+                list-style: none;
+            }
+            .container ul::after {
+                content: " ";
+                position: absolute;
+                width: 2px;
+                height: 100%;
+                left: 50%;
+                top: 0;
+                transform: translateX(-50%);
+                background-image: linear-gradient(to bottom, rgba(91, 14, 216, 0.767), rgba(238, 12, 200, 0.747));
+            }
+            .container ul li {
+                width: 50%;
+                height: auto;
+                padding: 15px 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.218);
+                position: relative;
+                margin-bottom: 30px;
+                z-index: 99;
+            }
+            .container ul li:nth-child(4) {
+                margin-bottom: 0;
+            }
+            .container ul li .circle {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #e100ff7a;
+                top: 0;
+                display: grid;
+                place-items: center;
+            }
+            .circle::after{
+                content: ' ';
+                width: 12px;
+                height: 12px;
+                background-color: #7f00ff;
+                border-radius: 50%;
+            }
+            ul li:nth-child(odd) .circle {
+                transform: translate(50%, -50%);
+                right: -30px;
+            }
+            ul li:nth-child(even) .circle {
+                transform: translate(-50%, -50%);
+                left: -30px;
+            }
+            ul li .date {
+                position: absolute;
+                width: 130px;
+                height: 33px;
+                background-image: linear-gradient(to right,#7f00ff,#e100ff);
+                border-radius: 15px;
+                top: -45px;
+                display: grid;
+                place-items: center;
+                color: #fff;
+                font-size: 13px;
+                box-shadow: 1px 2px 12px rgba(0, 0, 0, 0.318);
+            }
+            .container ul li:nth-child(odd) {
+                float: left;
+                clear: right;
+                text-align: right;
+                transform: translateX(-30px);
+            }
+            ul li:nth-child(odd) .date {
+                right: 20px;
+            }
+            .container ul li:nth-child(even) {
+                float: right;
+                clear: left;
+                transform: translateX(30px);
+            }
+            ul li .heading {
+                font-size: 25px;
+                color: rgb(91, 14, 216);
+                text-transform: uppercase;
+            }
+            ul li p {
+                font-size: 13px;
+                color: #666;
+                line-height: 18px;
+                margin: 6px 0 4px 0;
+            }
+            ul li a {
+                font-size: 13px;
+                text-decoration: none;
+                color: rgb(18, 54, 214);
+                transition: all 0.3s ease;
+            }
+            
+            
+            @media only screen and (min-width:798px) and (max-width: 1100px) {
+                .container{
+                    width: 80%;
+                }
+            }
+            
+            @media only screen and (max-width: 798px) {
+                .container{
+                    width: 70%;
+                    transform: translateX(20px);
+                }
+                .container ul::after{
+                    left: -40px;
+                }
+                .container ul li {
+                    width: 100%;
+                    float: none;
+                    clear: none;
+                    margin-bottom: 80px;
+                }
+                .container ul li .circle{
+                    left: -40px;
+                    transform: translate(-50%, -50%);
+                }
+                .container ul li .date{
+                    left: 20px;
+                }
+                .container ul li:nth-child(odd) {
+                    transform: translateX(0px);
+                    text-align: left;
+                }
+                .container ul li:nth-child(even) {
+                    transform: translateX(0px);
+                }
+            }
+            
+            @media only screen and (max-width: 550px) {
+                .container{
+                    width: 80%;
+                }
+                .container ul::after{
+                    left: -20px;
+                }
+                .container ul li .circle{
+                    left: -20px;
+                }
+            }
+            .timeline{
+                position: relative;   
+            }
+            .timeline ::after{
+                animation: moveline 2s linear forwards;
+            }
+            @keyframes moveline{
+                0%{
+                    height: 0%;
+                }
+                100%{
+                    height: 100%;
+                }
+            }
+        </style>
+
+    <body>
+        <div class="main">
+            <h3 class="head">Full Stack Development Roadmap</h3>
+        </div>
+        <div  class="timeline">
+        <div class="main">
+           
+            <div class="container">
+                <ul>
+                    <li>
+                        <h3 class="heading">prerequisite test </h3>
+                        <p>give the prerequisite test for checking your Knowlegde of full stack web development </p>
+                        <a href="/components/Prerequisite_test/full_stack.html">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">HTML</h3>
+                        <p>Leran the Foundational Structure of Web Pages Using Semmantic Tags to Build Accessible and Oraganised Conent </p>
+                        <a href="../subtopic/fullstack_subtopic/Basic_of_html.html">Dive Deep ></a>
+                        <span class="date">Lesson 1.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">html test</h3>
+                        <p>give the html test for checking your Knowlegde  </p>
+                        <a href="#">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">CSS</h3>
+                        <p>Master Styling and Layout Techniques To Create Visually Appealing and Responsive Web Designs  </p>
+                        <a href="../subtopic/fullstack_subtopic/basicofCSS.html"> >Dive Deep</a>
+                        <span class="date">Lesson 2.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">css test</h3>
+                        <p>give the css test for checking your Knowlegde  </p>
+                        <a href="">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">JavaScript</h3>
+                        <p>Learn to make Web Pages Interactive by Mastering DOM Manipulation, Events and core Programming Concepts </p>
+                        <a href="../subtopic/fullstack_subtopic/javascript.html">Dive Deep ></a>
+                        <span class="date">Lesson 3.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">JavaScript test</h3>
+                        <p>give the JavaScript test for checking your Knowlegde  </p>
+                        <a href="">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">Bootstrap</h3>
+                        <p>Utilize a Responsive CSS Framework to Quickly Design Mobile-First and Visually Consistant Web Applications </p>
+                        <a href="../subtopic/fullstack_subtopic/bootst.html">Dive Deep ></a>
+                        <span class="date">Lesson 4.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">bootstrap test</h3>
+                        <p>give the bootstrap test for checking your Knowlegde  </p>
+                        <a href="#">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">Git & Github</h3>
+                        <p>Learn Version Control</p>
+                        <a href="../subtopic/fullstack_subtopic/gitgithub.html">Dive Deep ></a>
+                        <span class="date">Lesson 5.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">Git & Github test</h3>
+                        <p>give the  Git & Github for checking your Knowlegde  </p>
+                        <a href="">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">React.js</h3>
+                        <p> Build Dynamic and interactive user Interfaces by Mastering REACT</p>
+                        <a href="../subtopic/fullstack_subtopic/react.html">Dive Deep ></a>
+                        <span class="date">Lesson 6.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">React.js test</h3>
+                        <p>give the React.js test for checking your Knowlegde  </p>
+                        <a href="#">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">Node.js</h3>
+                        <p>Develop Server-side Applications by Mastering NODE </p>
+                        <a href="../subtopic/fullstack_subtopic/node.html">Dive Deep ></a>
+                        <span class="date">Lesson 7.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">node.js test</h3>
+                        <p>give the node.js test for checking your Knowlegde  </p>
+                        <a href="#">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+
+                    <li>
+                        <h3 class="heading">Express.js</h3>
+                        <p>Simplify Backend by Building Roboust APIs with this framework</p>
+                        <a href="../subtopic/fullstack_subtopic/express.html">Dive Deep ></a>
+                        <span class="date">Lesson 8.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">Express.js test</h3>
+                        <p>give the Express.js test for checking your Knowlegde  </p>
+                        <a href="#">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">Mongodb</h3>
+                        <p>Learn NoSQL Databases Management Format with MONGODB </p>
+                        <a href="../subtopic/fullstack_subtopic/mongo.html">Dive Deep ></a>
+                        <span class="date">Lesson 9.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">MONGODB test</h3>
+                        <p>give the MondoDB test for checking your Knowlegde  </p>
+                        <a href="#">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">RESTful API</h3>
+                        <p>Design amd Implement Scalable Web Servives Using REST </p>
+                        <a href="../subtopic/fullstack_subtopic/restful.html">Dive Deep ></a>
+                        <span class="date">Lesson 10.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">RestFul API test</h3>
+                        <p>give the RestFul API test for checking your Knowlegde  </p>
+                        <a href="#">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">JWT AUTH</h3>
+                        <p>Implement Secure user Authentication and Authorization by JWT </p>
+                        <a href="../subtopic/fullstack_subtopic/JWT.html">Dive Deep ></a>
+                        <span class="date">Lesson 11.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">Hosting</h3>
+                        <p>Learn to Deploy Web Application to Cloud Platform or Servers</p>
+                        <a href="../subtopic/fullstack_subtopic/hosting.html">Dive Deep ></a>
+                        <span class="date">Lesson 12.</span>
+                        <span class="circle"></span>
+                    </li>
+                    <li>
+                        <h3 class="heading">Projects</h3>
+                        <p>Apply your skill by building real world full stack web  Projects</p>
+                        <a href="https://youtu.be/jk2rhtBJ5S4?si=ZDfxwu5t2rnrlqKY"  target="_blank">click ></a>
+                        <span class="date">test</span>
+                        <span class="circle"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </body>
+</html>

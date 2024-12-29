@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Poppins;
+        }
+
+        body {
+            background-color: rgb(194, 146, 215);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            border-radius: 10px;
+            box-shadow: 0 0 10px 0 black;
+            width: 500px;
+            height: 350px;
+            background-color: white;
+            position: relative;
+        }
+
+        #quiz-question {
+            font-size: 1.5rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            margin-left: 30px;
+        }
+
+        li {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        #submit {
+            background-color: #974aca;
+            border: none;
+            color: rgb(255, 255, 255);
+            font-size: 1.2rem;
+            display: block;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 7.5px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        #submit:hover {
+            background-color: #963eb7;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 id="quiz-question">Question Placeholder</h2>
+        <ul id="options">
+            <li>
+                <input type="radio" id="option-a" name="quiz-options" class="answer" />
+                <label for="option-a" id="text_option_a">Option A</label>
+            </li>
+            <li>
+                <input type="radio" id="option-b" name="quiz-options" class="answer" />
+                <label for="option-b" id="text_option_b">Option B</label>
+            </li>
+            <li>
+                <input type="radio" id="option-c" name="quiz-options" class="answer" />
+                <label for="option-c" id="text_option_c">Option C</label>
+            </li>
+            <li>
+                <input type="radio" id="option-d" name="quiz-options" class="answer" />
+                <label for="option-d" id="text_option_d">Option D</label>
+            </li>
+        </ul>
+        <button id="submit">Submit</button>
+    </div>
+
+    <script>
+        const quiz = [
+            {
+                question: "Which of the following is a common drawback of using a hash table for storing data?",
+
+            ans1text: "It requires too much memory for small datasets",
+            ans2text: "It guarantees O(1) time complexity for all operations",
+            ans3text: "It can have collisions, leading to performance degradation",
+            ans4text: "It is not suitable for storing large datasets",
+            answer: "It can have collisions, leading to performance degradation",
+
+
+            },
+            {
+                question: "What happens when a hash table experiences a collision during insertion?",
+
+ans1text: "The new value is simply discarded",
+ans2text: "A new hash function is generated",
+ans3text: "The value is inserted at a new index, following a collision resolution strategy",
+ans4text: "The table is resized and the existing elements are rehashed",
+answer: "The value is inserted at a new index, following a collision resolution strategy"
+
+,
+            },
+            {
+                question: "Which of the following is a commonly used method for resolving collisions in hash tables?",
+
+ans1text: "Linear probing",
+ans2text: "Quadratic probing",
+ans3text: "Chaining",
+ans4text: "All of the above",
+answer: "All of the above"
+,
+            },
+            {
+                question: "In a hash table, what does a good hash function ensure?",
+
+ans1text: "It distributes keys evenly across the table to minimize collisions",
+ans2text: "It stores keys in the order of insertion",
+ans3text: "It guarantees that keys with similar values will be hashed to different indices",
+ans4text: "It guarantees O(1) time complexity for all operations",
+answer: "It distributes keys evenly across the table to minimize collisions"
+,
+            },
+            {
+                question: "What is the time complexity of searching for an element in a hash table in the best case scenario?",
+
+ans1text: "O(n)",
+ans2text: "O(log n)",
+ans3text: "O(1)",
+ans4text: "O(n^2)",
+answer: "O(1)"
+
+
+,
+            },
+            
+            
+            
+            
+            
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById("quiz-question");
+        const optionA = document.getElementById("text_option_a");
+        const optionB = document.getElementById("text_option_b");
+        const optionC = document.getElementById("text_option_c");
+        const optionD = document.getElementById("text_option_d");
+        const submitButton = document.getElementById("submit");
+
+        function loadQuestion() {
+            const current = quiz[currentQuestion];
+            questionElement.textContent = current.question;
+            optionA.textContent = current.ans1text;
+            optionB.textContent = current.ans2text;
+            optionC.textContent = current.ans3text;
+            optionD.textContent = current.ans4text;
+        }
+
+        function updateVideos(score) {
+            let range = score <= 3 ? "0-3" : score <= 6 ? "4-6" : "7-10";
+            localStorage.setItem("quizScore", score); // Save score in localStorage
+            localStorage.setItem("quizRange", range); // Save range in localStorage
+            location.href = `/components/roadmap/dsa_roadmap.html`; // Redirect to next page
+        }
+
+        submitButton.addEventListener("click", () => {
+            const selectedAnswer = document.querySelector('input[name="quiz-options"]:checked');
+            if (!selectedAnswer) {
+                alert("Please select an answer!");
+                return;
+            }
+
+            const selectedText = selectedAnswer.nextElementSibling.textContent;
+            if (selectedText === quiz[currentQuestion].answer) {
+                score++;
+            }
+
+            currentQuestion++;
+            if (currentQuestion < quiz.length) {
+                loadQuestion();
+                selectedAnswer.checked = false;
+            } else {
+                alert("Your Prerequisite test score is " + score);
+                updateVideos(score);
+            }
+        });
+
+        loadQuestion();
+    </script>
+</body>
+
+</html>

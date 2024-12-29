@@ -1,0 +1,24 @@
+# Node modules and package lock file
+node_modules/
+package-lock.json
+
+# Compiled CSS and sourcemaps
+*.css
+*.css.map
+
+# Sass cache
+.sass-cache/
+
+# Logs and environment files
+*.log
+.env
+.env.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Set default behavior to automatically normalize line endings
+* text=auto
+*.sh text eol=lf
+*.bat text eol=crlf
